@@ -85,7 +85,7 @@ export const EQUIPMENTS: Equipment[] = [
     name: 'Cuerda Segmentada (Beaded)',
     type: 'Feedback táctil',
     description: 'Tiene cuentas de plástico que hacen ruido al golpear el suelo, proporcionando un excelente feedback auditivo y rítmico.',
-    bestFor: 'Trucos de coordinación y estilo libre',
+    bestFor: 'Principiantes, trucos de coordinación y estilo libre',
     image: 'https://images.unsplash.com/photo-1658421868478-436d6a5952d7?auto=format&fit=crop&q=80&w=800'
   }
 ];
