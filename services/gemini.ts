@@ -1,10 +1,9 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 export const generateCustomRoutine = async (goal: string, level: string, time: string) => {
   try {
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `Como entrenador experto en salto de cuerda, crea una rutina de ${time} minutos para alguien de nivel ${level} con el objetivo de ${goal}. 
@@ -39,12 +38,12 @@ export const generateCustomRoutine = async (goal: string, level: string, time: s
 
 export const generateAiImage = async (prompt: string, aspectRatio: string) => {
   try {
-    const aiImage = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
     const validRatios = ["1:1", "3:4", "4:3", "9:16", "16:9"];
     const ratioToUse = validRatios.includes(aspectRatio) ? aspectRatio : "1:1";
 
-    const response = await aiImage.models.generateContent({
+    const response = await ai.models.generateContent({
       model: 'gemini-3-pro-image-preview',
       contents: {
         parts: [{ text: `A highly motivational fitness photo related to jumping rope: ${prompt}` }],
@@ -57,15 +56,17 @@ export const generateAiImage = async (prompt: string, aspectRatio: string) => {
       },
     });
 
-    for (const part of response.candidates[0].content.parts) {
-      if (part.inlineData) {
-        return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+    if (response.candidates?.[0]?.content?.parts) {
+      for (const part of response.candidates[0].content.parts) {
+        if (part.inlineData) {
+          return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+        }
       }
     }
     return null;
   } catch (error: any) {
     console.error("Error generating image:", error);
-    if (error.message?.includes("Requested entity was not found")) {
+    if (error.message?.includes("Requested entity was not found") || error.message?.includes("API key")) {
       throw new Error("KEY_RESET");
     }
     throw error;
@@ -74,16 +75,15 @@ export const generateAiImage = async (prompt: string, aspectRatio: string) => {
 
 export const editAiImage = async (base64DataUrl: string, prompt: string) => {
   try {
-    const aiEdit = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
-    // Extract base64 data and mime type
     const matches = base64DataUrl.match(/^data:([^;]+);base64,(.+)$/);
     if (!matches) throw new Error("Invalid image format");
     
     const mimeType = matches[1];
     const data = matches[2];
 
-    const response = await aiEdit.models.generateContent({
+    const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash-image',
       contents: {
         parts: [
@@ -100,15 +100,17 @@ export const editAiImage = async (base64DataUrl: string, prompt: string) => {
       },
     });
 
-    for (const part of response.candidates[0].content.parts) {
-      if (part.inlineData) {
-        return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+    if (response.candidates?.[0]?.content?.parts) {
+      for (const part of response.candidates[0].content.parts) {
+        if (part.inlineData) {
+          return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+        }
       }
     }
     return null;
   } catch (error: any) {
     console.error("Error editing image:", error);
-    if (error.message?.includes("Requested entity was not found")) {
+    if (error.message?.includes("Requested entity was not found") || error.message?.includes("API key")) {
       throw new Error("KEY_RESET");
     }
     throw error;
@@ -116,6 +118,7 @@ export const editAiImage = async (base64DataUrl: string, prompt: string) => {
 };
 
 export const createChatSession = () => {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   return ai.chats.create({
     model: 'gemini-3-flash-preview',
     config: {
