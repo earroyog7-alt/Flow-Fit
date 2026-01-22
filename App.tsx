@@ -314,89 +314,89 @@ const App: React.FC = () => {
     const progressPercentage = totalStepTime > 0 ? (timeLeft / totalStepTime) * 100 : 0;
 
     return (
-      <div className="fixed inset-0 z-[160] flex items-center justify-center p-4 bg-indigo-950/95 backdrop-blur-xl animate-in fade-in duration-300">
-        <div className="bg-white w-full max-w-4xl rounded-[3.5rem] overflow-hidden shadow-2xl relative max-h-[95vh] flex flex-col border border-white/20">
-          <button onClick={() => { setSelectedRoutine(null); setIsTimerActive(false); }} className="absolute top-8 right-8 p-3 bg-gray-100 rounded-2xl transition hover:bg-red-50 hover:text-red-500 z-10"><X className="w-8 h-8" /></button>
+      <div className="fixed inset-0 z-[160] flex items-center justify-center p-2 sm:p-4 bg-indigo-950/95 backdrop-blur-xl animate-in fade-in duration-300">
+        <div className="bg-white w-full max-w-4xl rounded-[2rem] md:rounded-[3.5rem] overflow-hidden shadow-2xl relative max-h-[98vh] flex flex-col border border-white/20">
+          <button onClick={() => { setSelectedRoutine(null); setIsTimerActive(false); }} className="absolute top-4 right-4 sm:top-8 sm:right-8 p-2 sm:p-3 bg-gray-100/80 backdrop-blur rounded-xl sm:rounded-2xl transition hover:bg-red-50 hover:text-red-500 z-50"><X className="w-6 h-6 sm:w-8 h-8" /></button>
           
-          <div className="p-8 md:p-12 overflow-y-auto">
+          <div className="p-5 sm:p-8 md:p-12 overflow-y-auto">
             {!workoutFinished ? (
               <div className="flex flex-col h-full">
                 {/* Header Information */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-                  <div>
-                    <h2 className="text-4xl md:text-5xl font-black text-indigo-950 mb-4 tracking-tighter leading-tight">{selectedRoutine.title}</h2>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <span className="bg-indigo-50 text-indigo-600 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2 border border-indigo-100"><Clock className="w-3 h-3" /> {selectedRoutine.duration} TOTAL</span>
-                      <span className="bg-amber-50 text-amber-600 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2 border border-amber-100">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 sm:mb-10">
+                  <div className="max-w-[85%]">
+                    <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-indigo-950 mb-2 sm:mb-4 tracking-tighter leading-tight">{selectedRoutine.title}</h2>
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                      <span className="bg-indigo-50 text-indigo-600 px-3 sm:px-5 py-1 sm:py-2 rounded-full text-[8px] sm:text-[10px] font-black uppercase tracking-widest flex items-center gap-2 border border-indigo-100"><Clock className="w-3 h-3" /> {selectedRoutine.duration} TOTAL</span>
+                      <span className="bg-amber-50 text-amber-600 px-3 sm:px-5 py-1 sm:py-2 rounded-full text-[8px] sm:text-[10px] font-black uppercase tracking-widest flex items-center gap-2 border border-amber-100">
                         <RefreshCw className="w-3 h-3 animate-spin-slow" /> RONDA {currentRound} / {totalRounds}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* MAIN TIMER SECTION */}
-                <div className="relative mb-12 bg-indigo-950 rounded-[3.5rem] p-10 md:p-16 text-center shadow-2xl shadow-indigo-200 overflow-hidden group">
+                {/* MAIN TIMER SECTION - Optimized for Mobile */}
+                <div className="relative mb-6 sm:mb-10 bg-indigo-950 rounded-[2rem] sm:rounded-[3.5rem] p-6 sm:p-12 md:p-16 text-center shadow-2xl shadow-indigo-200 overflow-hidden group">
                   {/* Visual Background Progress */}
                   <div className="absolute inset-0 bg-indigo-900 opacity-20 pointer-events-none"></div>
                   <div 
-                    className="absolute left-0 bottom-0 h-3 bg-emerald-500 transition-all duration-1000 ease-linear" 
+                    className="absolute left-0 bottom-0 h-2 sm:h-3 bg-emerald-500 transition-all duration-1000 ease-linear" 
                     style={{ width: `${progressPercentage}%` }}
                   ></div>
 
                   <div className="relative z-10">
-                    <div className="text-[12px] font-black text-indigo-300 uppercase tracking-[0.5em] mb-4">TIEMPO RESTANTE</div>
-                    <div className="text-[9rem] md:text-[13rem] font-black text-white tabular-nums tracking-tighter leading-none mb-8 drop-shadow-2xl">
+                    <div className="text-[10px] sm:text-[12px] font-black text-indigo-300 uppercase tracking-[0.3em] sm:tracking-[0.5em] mb-2 sm:mb-4">TIEMPO RESTANTE</div>
+                    <div className="text-7xl sm:text-8xl md:text-9xl lg:text-[11rem] font-black text-white tabular-nums tracking-tighter leading-none mb-6 sm:mb-8 drop-shadow-2xl">
                       {formatTime(timeLeft)}
                     </div>
 
-                    <div className="inline-flex flex-col items-center bg-white/10 backdrop-blur-md px-10 py-6 rounded-[2.5rem] border border-white/20 mb-10 w-full max-w-2xl">
-                      <span className="text-indigo-200 font-black uppercase text-[10px] tracking-widest block mb-2">HACIENDO AHORA</span>
-                      <p className="text-white font-black text-3xl md:text-4xl tracking-tight leading-tight">{currentExercise}</p>
+                    <div className="inline-flex flex-col items-center bg-white/10 backdrop-blur-md px-6 sm:px-10 py-4 sm:py-6 rounded-2xl sm:rounded-[2.5rem] border border-white/20 mb-6 sm:mb-10 w-full max-w-2xl">
+                      <span className="text-indigo-200 font-black uppercase text-[8px] sm:text-[10px] tracking-widest block mb-1 sm:mb-2">HACIENDO AHORA</span>
+                      <p className="text-white font-black text-xl sm:text-3xl md:text-4xl tracking-tight leading-tight">{currentExercise}</p>
                     </div>
 
                     {/* Controls */}
-                    <div className="flex justify-center items-center gap-8">
+                    <div className="flex justify-center items-center gap-4 sm:gap-8">
                       {!isTimerActive ? (
                         <button 
                           onClick={() => setIsTimerActive(true)} 
-                          className="bg-emerald-500 text-white px-12 py-6 rounded-3xl font-black text-2xl hover:bg-emerald-600 transition shadow-2xl flex items-center gap-4 active:scale-95 group"
+                          className="bg-emerald-500 text-white px-6 sm:px-12 py-4 sm:py-6 rounded-2xl sm:rounded-3xl font-black text-lg sm:text-2xl hover:bg-emerald-600 transition shadow-2xl flex items-center gap-2 sm:gap-4 active:scale-95 group"
                         >
-                          <Play className="w-8 h-8 fill-white group-hover:scale-110 transition-transform" /> EMPEZAR
+                          <Play className="w-6 h-6 sm:w-8 h-8 fill-white group-hover:scale-110 transition-transform" /> EMPEZAR
                         </button>
                       ) : (
                         <button 
                           onClick={() => setIsTimerActive(false)} 
-                          className="bg-amber-500 text-white px-12 py-6 rounded-3xl font-black text-2xl hover:bg-amber-600 transition shadow-2xl flex items-center gap-4 active:scale-95 group"
+                          className="bg-amber-500 text-white px-6 sm:px-12 py-4 sm:py-6 rounded-2xl sm:rounded-3xl font-black text-lg sm:text-2xl hover:bg-amber-600 transition shadow-2xl flex items-center gap-2 sm:gap-4 active:scale-95 group"
                         >
-                          <Pause className="w-8 h-8 fill-white group-hover:scale-110 transition-transform" /> PAUSAR
+                          <Pause className="w-6 h-6 sm:w-8 h-8 fill-white group-hover:scale-110 transition-transform" /> PAUSAR
                         </button>
                       )}
                       <button 
                         onClick={resetRoutineTimer} 
-                        className="bg-white/10 text-white border border-white/20 px-8 py-6 rounded-3xl font-black hover:bg-white/20 transition active:scale-95"
+                        className="bg-white/10 text-white border border-white/20 px-4 sm:px-8 py-4 sm:py-6 rounded-2xl sm:rounded-3xl font-black hover:bg-white/20 transition active:scale-95"
                         title="Reiniciar paso"
                       >
-                        <RotateCcw className="w-8 h-8" />
+                        <RotateCcw className="w-6 h-6 sm:w-8 h-8" />
                       </button>
                     </div>
                   </div>
                 </div>
 
-                {/* NEXT UP SECTION */}
-                <div className="flex items-center gap-6 bg-gray-50 p-8 rounded-[2.5rem] border-2 border-dashed border-gray-200 mb-12">
-                   <div className="bg-indigo-100 p-4 rounded-2xl">
-                      <FastForward className="w-6 h-6 text-indigo-600" />
+                {/* NEXT UP SECTION - Compact */}
+                <div className="flex items-center gap-4 sm:gap-6 bg-gray-50 p-4 sm:p-8 rounded-2xl sm:rounded-[2.5rem] border-2 border-dashed border-gray-200 mb-6 sm:mb-12">
+                   <div className="bg-indigo-100 p-2 sm:p-4 rounded-xl sm:rounded-2xl shrink-0">
+                      <FastForward className="w-5 h-5 sm:w-6 h-6 text-indigo-600" />
                    </div>
-                   <div className="flex-1">
-                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1">PRÓXIMO PASO</span>
-                      <p className="text-indigo-950 font-black text-xl">{nextExercise}</p>
+                   <div className="flex-1 min-w-0">
+                      <span className="text-[8px] sm:text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1">PRÓXIMO PASO</span>
+                      <p className="text-indigo-950 font-black text-sm sm:text-xl truncate">{nextExercise}</p>
                    </div>
                 </div>
 
                 {/* Step List Progress */}
-                <div className="space-y-4">
-                  <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-6">LISTA DE PASOS</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-4 mb-4">
+                  <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">LISTA DE PASOS</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                     {selectedRoutine.exercises.map((ex, i) => {
                       const isActive = i === currentStepIndex;
                       const isDone = i < currentStepIndex;
@@ -404,11 +404,11 @@ const App: React.FC = () => {
                       if (!isTimed && !parseRounds(ex)) return null;
 
                       return (
-                        <div key={i} className={`flex gap-4 items-center p-5 rounded-2xl transition-all ${isActive ? 'bg-indigo-600 text-white shadow-xl scale-[1.02]' : 'bg-gray-50'}`}>
-                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm shrink-0 shadow-sm ${isActive ? 'bg-white text-indigo-600' : isDone ? 'bg-indigo-100 text-indigo-500' : 'bg-gray-200 text-gray-400'}`}>
-                            {isDone ? <Check className="w-5 h-5" /> : i + 1}
+                        <div key={i} className={`flex gap-3 sm:gap-4 items-center p-3 sm:p-5 rounded-xl sm:rounded-2xl transition-all ${isActive ? 'bg-indigo-600 text-white shadow-xl scale-[1.02]' : 'bg-gray-50'}`}>
+                          <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center font-black text-xs sm:text-sm shrink-0 shadow-sm ${isActive ? 'bg-white text-indigo-600' : isDone ? 'bg-indigo-100 text-indigo-500' : 'bg-gray-200 text-gray-400'}`}>
+                            {isDone ? <Check className="w-4 h-4 sm:w-5 h-5" /> : i + 1}
                           </div>
-                          <p className={`text-base font-black truncate ${isActive ? 'text-white' : isDone ? 'text-indigo-200' : 'text-indigo-950'}`}>{ex}</p>
+                          <p className={`text-sm sm:text-base font-black truncate ${isActive ? 'text-white' : isDone ? 'text-indigo-200' : 'text-indigo-950'}`}>{ex}</p>
                         </div>
                       );
                     })}
@@ -416,15 +416,15 @@ const App: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className="text-center py-24 animate-in zoom-in-95 duration-700">
-                <div className="w-48 h-48 bg-emerald-100 rounded-[4rem] flex items-center justify-center mx-auto mb-12 shadow-2xl shadow-emerald-50">
-                  <Award className="w-24 h-24 text-emerald-600" />
+              <div className="text-center py-10 sm:py-24 animate-in zoom-in-95 duration-700">
+                <div className="w-32 h-32 sm:w-48 sm:h-48 bg-emerald-100 rounded-[2.5rem] sm:rounded-[4rem] flex items-center justify-center mx-auto mb-8 sm:mb-12 shadow-2xl shadow-emerald-50">
+                  <Award className="w-16 h-16 sm:w-24 h-24 text-emerald-600" />
                 </div>
-                <h2 className="text-6xl md:text-7xl font-black text-indigo-950 mb-8 tracking-tighter leading-tight">ENTRENAMIENTO<br /><span className="text-emerald-500">COMPLETADO</span></h2>
-                <p className="text-xl text-gray-500 font-bold mb-14">¡Has dominado el ritmo hoy! Sigue así para ver resultados reales.</p>
+                <h2 className="text-4xl sm:text-6xl md:text-7xl font-black text-indigo-950 mb-4 sm:mb-8 tracking-tighter leading-tight">ENTRENAMIENTO<br /><span className="text-emerald-500">COMPLETADO</span></h2>
+                <p className="text-base sm:text-xl text-gray-500 font-bold mb-8 sm:mb-14">¡Has dominado el ritmo hoy! Sigue así para ver resultados reales.</p>
                 <button 
                   onClick={() => { setSelectedRoutine(null); setWorkoutFinished(false); }} 
-                  className="bg-indigo-600 text-white px-20 py-8 rounded-[3rem] font-black text-3xl hover:bg-indigo-700 transition shadow-2xl active:scale-95"
+                  className="bg-indigo-600 text-white px-10 py-5 sm:px-20 sm:py-8 rounded-2xl sm:rounded-[3rem] font-black text-xl sm:text-3xl hover:bg-indigo-700 transition shadow-2xl active:scale-95 w-full sm:w-auto"
                 >
                   FINALIZAR SESIÓN
                 </button>
